@@ -4,18 +4,20 @@ $(document).ready(() => {
   console.log('Sanity Check!');
 });
 
-$('.button').on('click', function() {
+$('.button').on('click', function () {
   $.ajax({
     url: '/tasks/',
     data: { type: $(this).data('type') },
     method: 'POST',
   })
-  .done((res) => {
-    getStatus(res.task_id);
-  })
-  .fail((err) => {
-    console.log(err);
-  });
+    .done((res) => {
+      if (res.task_id) {
+        getStatus(res.task_id);
+      }
+    })
+    .fail((err) => {
+      console.log(err);
+    });
 });
 
 function getStatus(taskID) {
@@ -23,23 +25,23 @@ function getStatus(taskID) {
     url: `/tasks/${taskID}/`,
     method: 'GET'
   })
-  .done((res) => {
-    const html = `
+    .done((res) => {
+      const html = `
       <tr>
         <td>${res.task_id}</td>
         <td>${res.task_status}</td>
         <td>${res.task_result}</td>
       </tr>`
-    $('#tasks').prepend(html);
+      $('#tasks').prepend(html);
 
-    const taskStatus = res.task_status;
+      const taskStatus = res.task_status;
 
-    if (taskStatus === 'SUCCESS' || taskStatus === 'FAILURE') return false;
-    setTimeout(function() {
-      getStatus(res.task_id);
-    }, 1000);
-  })
-  .fail((err) => {
-    console.log(err)
-  });
+      if (taskStatus === 'SUCCESS' || taskStatus === 'FAILURE') return false;
+      setTimeout(function () {
+        getStatus(res.task_id);
+      }, 1000);
+    })
+    .fail((err) => {
+      console.log(err)
+    });
 }
