@@ -1,3 +1,3 @@
 # Django + Celery
 
-see https://testdriven.io/blog/django-and-celery/
+see Tutorial [testdriven.io: Asynchronous Tasks with Django and Celery](https://testdriven.io/blog/django-and-celery/)
