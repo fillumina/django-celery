@@ -5,15 +5,15 @@ $(document).ready(() => {
 });
 
 $('.button').on('click', function () {
+  var button = $(this);
+  var data_type = button.attr('data-type');
   $.ajax({
     url: '/tasks/',
-    data: { type: $(this).data('type') },
+    data: { type: data_type },
     method: 'POST',
   })
     .done((res) => {
-      if (res.task_id) {
-        getStatus(res.task_id);
-      }
+      getStatus(res.task_id);
     })
     .fail((err) => {
       console.log(err);
