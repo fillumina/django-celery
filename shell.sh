@@ -1,3 +1,4 @@
 #!/bin/sh
 
- docker-compose run web /usr/src/app/manage.py shell
+echo "use CTRL+D to exit shell"
+docker exec -it django-celery-web-1 sh
