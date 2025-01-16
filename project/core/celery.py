@@ -9,6 +9,9 @@ from celery import Celery
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 
 # create a new celery instance
+# the first argument is the name of the current module
+# app = Celery('tasks', backend='redis://localhost', broker='pyamqp://')
+# the other arguments can be defined in the settings
 app = Celery("core")
 # load default settings (option named CELERY_xxx)
 app.config_from_object("django.conf:settings", namespace="CELERY")
